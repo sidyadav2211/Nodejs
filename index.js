@@ -1,19 +1,15 @@
-const app = require('./app')
-const fs = require('fs');
 const http = require('http');
-const chalk = require('chalk');
-const port = 3002;
-const hostName = 'localhost'
+const data = require('./data')
+const host= 'localhost';
+const port= 3004;
+const apps= http.createServer((req,res)=>{
+    res.writeHead(200,{'content-type':'application/json'})
+    res.write(JSON.stringify(data));
+    res.end()
 
-console.log('added comments');
-http.createServer((req,res)=>{
-    res.writeHead(200,{'content-type':'text/plain'})
-    res.write('Hello node js')
-    res.end();
-}).listen(port,hostName,()=>{
-    console.log(`Serve running at http://${hostName}:${port}`)
+})
+
+apps.listen(port,host,()=>{
+    console.log(`Server running at http://${host}:${port}`);
 });
 
-const nameList  = fs.writeFileSync('nameList.txt','list');
-
-console.log(chalk.blue('hey'));
