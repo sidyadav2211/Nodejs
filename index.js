@@ -3,6 +3,8 @@ const fs = require('fs');
 const http = require('http');
 const port = 3002;
 const hostName = 'localhost'
+
+console.log('added comments');
 http.createServer((req,res)=>{
     res.writeHead(200,{'content-type':'text/plain'})
     res.write('Hello node js')
