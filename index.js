@@ -1,19 +1,29 @@
-const app = require('./app')
 const fs = require('fs');
-const http = require('http');
-const chalk = require('chalk');
-const port = 3002;
-const hostName = 'localhost'
+const path = require('path');
+const dirPath =path.join(__dirname,'crud');
 
-console.log('added comments');
-http.createServer((req,res)=>{
-    res.writeHead(200,{'content-type':'text/plain'})
-    res.write('Hello node js')
-    res.end();
-}).listen(port,hostName,()=>{
-    console.log(`Serve running at http://${hostName}:${port}`)
+// crud file 
+const filePath =`${dirPath}/hello.txt`;
+
+// create file
+fs.writeFileSync(filePath,'Simple file');
+
+// read file 
+fs.readFile(filePath,'utf8',(err,file)=>{
+    console.log(file)
+})
+
+
+// edit file 
+fs.appendFile(filePath,'Hello kailash',(err,file)=>{
+    if(!err) console.log(file);
 });
 
-const nameList  = fs.writeFileSync('nameList.txt','list');
+// rename file 
+fs.rename(filePath,`${dirPath}/sid.txt`,(err)=>{
+    if(!err) console.log("file name changed")
+})
 
-console.log(chalk.blue('hey'));
+// remove 
+
+fs.unlinkSync(`${dirPath}/sid.txt`)
