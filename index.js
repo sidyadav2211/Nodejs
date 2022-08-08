@@ -1,15 +1,15 @@
-const http = require('http');
-const data = require('./data')
-const host= 'localhost';
-const port= 3004;
-const apps= http.createServer((req,res)=>{
-    res.writeHead(200,{'content-type':'application/json'})
-    res.write(JSON.stringify(data));
-    res.end()
+const fs = require('fs');
+const path = require('path');
 
+const dir = path.join(__dirname,'files')
+console.log(dir);
+for (let i=0; i<5;i++){
+    fs.writeFileSync(dir+"/hello"+i+".txt",'Files is created')
+}
+
+fs.readdir(dir,(err,files)=>{
+    files.forEach((item)=>{
+        console.log(item,'List of files')
+    })
 })
-
-apps.listen(port,host,()=>{
-    console.log(`Server running at http://${host}:${port}`);
-});
 
