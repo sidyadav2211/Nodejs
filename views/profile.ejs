@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+</head>
+<body>
+    <div style=" margin:auto; width: 20%; border: 2px solid grey; padding:10px">
+    <h1>Welcome <%= data.name %> <%= data.lastName %></h1>
+    <p >City: <%= data.city%></p>
+    <p>email: <%= data.email %></p>
+    <ul>
+        <% data.skills.forEach((skill)=>{ %>
+            <li>
+                <%= skill %>
+            </li>
+       <% }) %>
+    </ul>
+    </div>
+
+</body>
+</html>

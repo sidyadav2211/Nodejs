@@ -1,19 +1,26 @@
-const app = require('./app')
-const fs = require('fs');
-const http = require('http');
-const chalk = require('chalk');
+const express = require('express');
+
+const app = express()
 const port = 3002;
 const hostName = 'localhost'
 
-console.log('added comments');
-http.createServer((req,res)=>{
-    res.writeHead(200,{'content-type':'text/plain'})
-    res.write('Hello node js')
-    res.end();
-}).listen(port,hostName,()=>{
+//set ejs
+app.set('view engine','ejs')
+
+app.get('/',(_,res)=>{
+    res.render('home')
+})
+app.get('/profile',(_,res)=>{
+    const data={
+        name:'Kailash',
+        lastName:'Yadav',
+        city:'Pune',
+        email:'kailash@gmail.com',
+        skills:['c','c++', 'javaScript','Vue']
+    }
+    res.render('profile',{data:data})
+})
+app.listen(port,hostName,()=>{
     console.log(`Serve running at http://${hostName}:${port}`)
 });
 
-const nameList  = fs.writeFileSync('nameList.txt','list');
-
-console.log(chalk.blue('hey'));
