@@ -1,19 +1,28 @@
-const app = require('./app')
-const fs = require('fs');
-const http = require('http');
-const chalk = require('chalk');
-const port = 3002;
-const hostName = 'localhost'
+const express = require('express');
 
-console.log('added comments');
-http.createServer((req,res)=>{
-    res.writeHead(200,{'content-type':'text/plain'})
-    res.write('Hello node js')
-    res.end();
-}).listen(port,hostName,()=>{
-    console.log(`Serve running at http://${hostName}:${port}`)
-});
+const path = require('path');
 
-const nameList  = fs.writeFileSync('nameList.txt','list');
+const port = 3001;
 
-console.log(chalk.blue('hey'));
+const filePath = path.join(__dirname,'public');
+const app= express();
+
+
+// using static file
+// app.use(express.static(filePath));
+
+// dynamic get files
+
+app.get('/',(req,res)=>{
+    res.sendFile(`${filePath}/index.html`)
+})
+
+app.get('/about',(req,res)=>{
+    res.sendFile(`${filePath}/about.html`)
+})
+app.get('*',(req,res)=>{
+    res.sendFile(`${filePath}/noPageFound.html`)
+})
+app.listen(port,()=>{
+    console.log(`Server running at http://localhost:${port}`);
+})
